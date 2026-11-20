@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123b32">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>HDIL EPR</title>
+<style>
+:root{--green:#123b32;--green2:#1f6b55;--bg:#f3f6f4;--card:#fff;--ink:#17231f;--muted:#68766f;--line:#e2e9e4}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
+header{background:var(--green);color:white;padding:18px 16px 14px;position:sticky;top:0;z-index:3;box-shadow:0 2px 10px #0002}
+.brand{font-size:23px;font-weight:800;letter-spacing:.5px}.sub{font-size:12px;opacity:.85;margin-top:2px}
+nav{display:flex;gap:7px;overflow:auto;padding:10px;background:#e8efeb;position:sticky;top:76px;z-index:2}
+nav button{border:0;border-radius:20px;padding:9px 13px;white-space:nowrap;background:white;color:var(--green);font-weight:650}
+nav button.active{background:var(--green);color:white}
+main{max-width:900px;margin:auto;padding:15px}.page{display:none}.page.active{display:block}
+h2{font-size:19px;margin:8px 0 14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 1px 3px #00008}
+.metric{font-size:23px;font-weight:800;color:var(--green);margin-top:5px}.muted{color:var(--muted);font-size:12px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}
+label{display:block;font-size:13px;font-weight:650;margin-bottom:4px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ccd8d0;border-radius:9px;background:white;font:inherit}
+button.primary{border:0;border-radius:10px;background:var(--green2);color:white;padding:12px 16px;font-weight:700}
+button.danger{border:0;background:#fae8e7;color:#9c2922;border-radius:8px;padding:6px 9px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}th,td{text-align:left;padding:9px 7px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:700}
+.tablewrap{overflow:auto}.empty{text-align:center;color:var(--muted);padding:18px}
+.note{background:#fff8df;border:1px solid #f0df9c;padding:12px;border-radius:10px;font-size:13px;margin:12px 0}
+@media(max-width:520px){form{grid-template-columns:1fr}.full{grid-column:auto}.grid{gap:8px}.card{padding:11px}.metric{font-size:20px}}
+</style></head>
+<body>
+<header><div class="brand">HDIL EPR</div><div class="sub">Hasibur Dream Industries Limited · Business Management</div></header>
+<nav id="nav">
+<button class="active" data-page="home">হোম</button><button data-page="purchase">ক্রয়</button><button data-page="usage">ব্যবহার</button><button data-page="job">জব ওয়ার্ক</button><button data-page="receive">ফেরত</button><button data-page="payment">পেমেন্ট</button><button data-page="stock">স্টক</button><button data-page="reports">রিপোর্ট</button>
+</nav>
+<main>
+<section id="home" class="page active">
+<h2>ড্যাশবোর্ড</h2><div class="grid">
+<div class="card"><div class="muted">মোট ক্রয়</div><div class="metric" id="mPurchase">৳0</div></div>
+<div class="card"><div class="muted">মোট পেমেন্ট</div><div class="metric" id="mPayment">৳0</div></div>
+<div class="card"><div class="muted">স্টকে মোট পরিমাণ</div><div class="metric" id="mStock">0</div></div>
+<div class="card"><div class="muted">জব ওয়ার্ক পাঠানো</div><div class="metric" id="mJob">0</div></div></div>
+<div class="note"><b>ডেমো সংস্করণ:</b> তথ্য এই ডিভাইসের ব্রাউজারে সেভ হয়। একাধিক কর্মচারীর মধ্যে একই ডেটা শেয়ার করতে অনলাইন সার্ভার/ডেটাবেস সংযোগ প্রয়োজন।</div>
+<div class="panel"><b>দ্রুত কাজ</b><p class="muted">নিচের মেনু থেকে ক্রয়, মালামাল ব্যবহার, জব ওয়ার্ক, ফেরত ও পেমেন্ট এন্ট্রি করুন।</p></div>
+</section>
+<section id="purchase" class="page"><h2>ক্রয় রেজিস্টার</h2><div class="panel"><form id="purchaseForm">
+<div><label>তারিখ</label><input name="date" type="date" required></div><div><label>সাপ্লায়ার/দোকান</label><input name="party" required placeholder="দোকানের নাম"></div>
+<div><label>মালামালের নাম</label><input name="item" required></div><div><label>পরিমাণ</label><input name="qty" type="number" min="0.01" step="any" required></div>
+<div><label>একক</label><select name="unit"><option>পিস</option><option>কেজি</option><option>লিটার</option><option>ফুট</option><option>মিটার</option><option>বস্তা</option><option>অন্যান্য</option></select></div><div><label>মোট টাকা (৳)</label><input name="amount" type="number" min="0" step="any" required></div>
+<div class="full"><button class="primary">ক্রয় সংরক্ষণ করুন</button></div></form></div><div id="purchaseTable" class="tablewrap"></div></section>
+<section id="usage" class="page"><h2>নিজস্ব কাজে মালামাল ব্যবহার</h2><div class="panel"><form id="usageForm">
+<div><label>তারিখ</label><input name="date" type="date" required></div><div><label>কাজের বিবরণ</label><input name="work" required></div>
+<div><label>মালামাল</label><input name="item" required></div><div><label>পরিমাণ</label><input name="qty" type="number" min="0.01" step="any" required></div>
+<div><label>একক</label><input name="unit" placeholder="পিস/কেজি" required></div><div class="full"><button class="primary">ব্যবহার সংরক্ষণ করুন</button></div></form></div><div id="usageTable" class="tablewrap"></div></section>
+<section id="job" class="page"><h2>জব ওয়ার্কে মালামাল পাঠানো</h2><div class="panel"><form id="jobForm">
+<div><label>তারিখ</label><input name="date" type="date" required></div><div><label>দোকান/ওয়ার্কশপ</label><input name="party" required></div>
+<div><label>মালামাল</label><input name="item" required></div><div><label>পরিমাণ</label><input name="qty" type="number" min="0.01" step="any" required></div>
+<div><label>একক</label><input name="unit" required placeholder="পিস/কেজি"></div><div><label>কাজের বিবরণ</label><input name="work" placeholder="কী কাজ হবে"></div>
+<div class="full"><button class="primary">পাঠানোর তথ্য সংরক্ষণ</button></div></form></div><div id="jobTable" class="tablewrap"></div></section>
+<section id="receive" class="page"><h2>দোকান থেকে মালামাল/পণ্য ফেরত</h2><div class="panel"><form id="receiveForm">
+<div><label>তারিখ</label><input name="date" type="date" required></div><div><label>দোকান/ওয়ার্কশপ</label><input name="party" required></div>
+<div><label>ফেরত/তৈরি পণ্যের নাম</label><input name="item" required></div><div><label>পরিমাণ</label><input name="qty" type="number" min="0.01" step="any" required></div>
+<div><label>একক</label><input name="unit" required></div><div><label>ধরন</label><select name="kind"><option>তৈরি পণ্য</option><option>অব্যবহৃত কাঁচামাল</option></select></div>
+<div class="full"><button class="primary">ফেরত সংরক্ষণ করুন</button></div></form></div><div id="receiveTable" class="tablewrap"></div></section>
+<section id="payment" class="page"><h2>পেমেন্ট রেজিস্টার</h2><div class="panel"><form id="paymentForm">
+<div><label>তারিখ</label><input name="date" type="date" required></div><div><label>প্রাপক/দোকান</label><input name="party" required></div>
+<div><label>টাকার পরিমাণ (৳)</label><input name="amount" type="number" min="0.01" step="any" required></div><div><label>পেমেন্টের ধরন</label><select name="method"><option>নগদ</option><option>ব্যাংক</option><option>বিকাশ</option><option>নগদ (মোবাইল)</option><option>অন্যান্য</option></select></div>
+<div class="full"><label>বিবরণ</label><input name="note" placeholder="কোন বিল/কাজের পেমেন্ট"></div><div class="full"><button class="primary">পেমেন্ট সংরক্ষণ করুন</button></div></form></div><div id="paymentTable" class="tablewrap"></div></section>
+<section id="stock" class="page"><h2>স্টক রেজিস্টার</h2><div class="panel"><p class="muted">মালামালভিত্তিক আনুমানিক পরিমাণ: ক্রয় + অব্যবহৃত/ফেরত কাঁচামাল − নিজস্ব ব্যবহার − জব ওয়ার্কে পাঠানো। তৈরি পণ্য আলাদা হিসাবের জন্য পরবর্তী সংস্করণে আলাদা পণ্য কোড যুক্ত করতে হবে।</p><div id="stockTable"></div></div></section>
+<section id="reports" class="page"><h2>রিপোর্ট</h2><div class="panel"><div id="reportSummary"></div><button class="primary" onclick="exportCSV()">Excel-এ খোলার CSV ডাউনলোড</button> <button class="danger" onclick="clearAll()">সব ডেমো ডেটা মুছুন</button></div></section>
+</main>
+<script>
+const keys=['purchase','usage','job','receive','payment'];let db={};keys.forEach(k=>db[k]=JSON.parse(localStorage.getItem('hdil_'+k)||'[]'));
+const fmt=n=>'৳'+Number(n||0).toLocaleString('en-BD',{maximumFractionDigits:2});
+function save(){keys.forEach(k=>localStorage.setItem('hdil_'+k,JSON.stringify(db[k])));render()}
+function addForm(id,key){document.getElementById(id).addEventListener('submit',e=>{e.preventDefault();let o=Object.fromEntries(new FormData(e.target));o.id=Date.now();db[key].push(o);save();e.target.reset();alert('তথ্য সংরক্ষণ হয়েছে');});}
+addForm('purchaseForm','purchase');addForm('usageForm','usage');addForm('jobForm','job');addForm('receiveForm','receive');addForm('paymentForm','payment');
+function table(key,fields){let rows=db[key];if(!rows.length)return '<div class="empty">এখনো কোনো তথ্য যোগ করা হয়নি</div>';return '<table><thead><tr>'+fields.map(f=>'<th>'+f[1]+'</th>').join('')+'<th>অ্যাকশন</th></tr></thead><tbody>'+rows.slice().reverse().map(r=>'<tr>'+fields.map(f=>'<td>'+esc(r[f[0]]||'')+'</td>').join('')+'<td><button class="danger" onclick="del(\\''+key+'\\','+r.id+')">মুছুন</button></td></tr>').join('')+'</tbody></table>'}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function del(k,id){if(confirm('এই তথ্য মুছে ফেলবেন?')){db[k]=db[k].filter(x=>x.id!==id);save()}}
+function render(){
+document.getElementById('purchaseTable').innerHTML=table('purchase',[['date','তারিখ'],['party','সাপ্লায়ার'],['item','মালামাল'],['qty','পরিমাণ'],['unit','একক'],['amount','টাকা']]);
+document.getElementById('usageTable').innerHTML=table('usage',[['date','তারিখ'],['work','কাজ'],['item','মালামাল'],['qty','পরিমাণ'],['unit','একক']]);
+document.getElementById('jobTable').innerHTML=table('job',[['date','তারিখ'],['party','দোকান'],['item','মালামাল'],['qty','পরিমাণ'],['unit','একক'],['work','কাজ']]);
+document.getElementById('receiveTable').innerHTML=table('receive',[['date','তারিখ'],['party','দোকান'],['item','পণ্য/মাল'],['qty','পরিমাণ'],['unit','একক'],['kind','ধরন']]);
+document.getElementById('paymentTable').innerHTML=table('payment',[['date','তারিখ'],['party','প্রাপক'],['amount','টাকা'],['method','মাধ্যম'],['note','বিবরণ']]);
+let p=db.purchase.reduce((a,x)=>a+ +x.amount,0),pay=db.payment.reduce((a,x)=>a+ +x.amount,0),job=db.job.reduce((a,x)=>a+ +x.qty,0);
+document.getElementById('mPurchase').textContent=fmt(p);document.getElementById('mPayment').textContent=fmt(pay);document.getElementById('mJob').textContent=job.toLocaleString('en-BD');
+let stock={};function sum(k,sign){db[k].forEach(x=>{let key=x.item+' ('+x.unit+')';stock[key]=(stock[key]||0)+sign*(+x.qty||0)})}
+sum('purchase',1);sum('receive',1);sum('usage',-1);sum('job',-1);
+document.getElementById('mStock').textContent=Object.values(stock).reduce((a,b)=>a+b,0).toLocaleString('en-BD',{maximumFractionDigits:2});
+let st=Object.entries(stock).filter(x=>x[1]!==0);document.getElementById('stockTable').innerHTML=st.length?'<table><tr><th>মালামাল</th><th>অবশিষ্ট</th></tr>'+st.map(x=>'<tr><td>'+esc(x[0])+'</td><td>'+x[1]+'</td></tr>').join('')+'</table>':'<div class="empty">স্টকের তথ্য নেই</div>';
+document.getElementById('reportSummary').innerHTML='<p>মোট ক্রয়: <b>'+fmt(p)+'</b></p><p>মোট পেমেন্ট: <b>'+fmt(pay)+'</b></p><p>ক্রয় ও পেমেন্টের সাধারণ পার্থক্য: <b>'+fmt(p-pay)+'</b></p><p>ক্রয় এন্ট্রি: '+db.purchase.length+' · ব্যবহার এন্ট্রি: '+db.usage.length+' · জব ওয়ার্ক: '+db.job.length+' · ফেরত: '+db.receive.length+'</p><p class="muted">এটি পূর্ণাঙ্গ লাভ-ক্ষতি বা পার্টি-ভিত্তিক বকেয়া হিসাব নয়।</p>';
+}
+function exportCSV(){let lines=['Register,Date,Party,Item,Quantity,Unit,Amount,Note'];keys.forEach(k=>db[k].forEach(x=>lines.push([k,x.date,x.party,x.item,x.qty,x.unit,x.amount,x.note||x.work||''].map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(','))));let blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='HDIL_EPR_data.csv';a.click();URL.revokeObjectURL(a.href)}
+function clearAll(){if(confirm('সব ডেমো ডেটা স্থায়ীভাবে মুছে যাবে। নিশ্চিত?')){keys.forEach(k=>{db[k]=[];localStorage.removeItem('hdil_'+k)});render()}}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.page).classList.add('active')});
+render();
+</script><script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body></html>
